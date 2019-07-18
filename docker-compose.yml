@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+    postgres:
+        image: postgres:11
+        environment:
+            POSTGRES_DB: commento
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        volumes:
+            - commento_postgres_volume:/var/lib/postgresql/data
+        networks:
+            - commento_network
+
+    app:
+        image: registry.gitlab.com/commento/commento
+        environment:
+            # Commento port inside the container - do not change
+            COMMENTO_PORT: 8080
+            # PostgreSQL DB
+            COMMENTO_POSTGRES: postgres://postgres:postgres@postgres:5432/commento?sslmode=disable
+
+            # Update the settings below appropriately
+            COMMENTO_ORIGIN: https://YOUR_DOMAIN.com/
+
+            # Uncomment to disable new Dashboard users
+            #COMMENTO_FORBID_NEW_OWNERS: 'true'
+
+            # SMTP settings
+            #COMMENTO_SMTP_HOST: YOUR_SMTP_HOST
+            #COMMENTO_SMTP_PORT: 25
+            #COMMENTO_SMTP_USERNAME: YOUR_SMTP_USERNAME
+            #COMMENTO_SMTP_PASSWORD: YOUR_SMTP_HOST_PASSWORD
+            #COMMENTO_SMTP_FROM_ADDRESS: noreply@YOUR_DOMAIN
+
+            # Google OAuth2
+            # COMMENTO_GOOGLE_KEY: YOUR_API_KEY
+            # COMMENTO_GOOGLE_SECRET: YOUR_API_SECRET
+
+            # GitHub OAuth2
+            #COMMENTO_GITHUB_KEY: YOUR_API_KEY
+            #COMMENTO_GITHUB_SECRET: YOUR_API_SECRET
+
+            # Twitter OAuth2
+            #COMMENTO_TWITTER_KEY: YOUR_API_KEY
+            #COMMENTO_TWITTER_SECRET: YOUR_API_SECRET
+        depends_on:
+            - postgres
+        networks:
+            - commento_network
+
+    certbot:
+        build:
+            context: certbot
+        environment:
+            # Update the settings below appropriately
+            DOMAIN: YOUR_DOMAIN.com
+            EMAIL: YOUR@EMAIL_ADDRESS
+        volumes:
+            - certbot_etc_volume:/etc/letsencrypt
+            - certbot_var_volume:/var/www/certbot
+        networks:
+            - commento_network
+
+    nginx:
+        build:
+            context: nginx
+            args:
+                # Update the settings below appropriately
+                DOMAIN: YOUR_DOMAIN.com
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - certbot
+            - app
+        volumes:
+            - certbot_etc_volume:/etc/letsencrypt:ro
+            - certbot_var_volume:/var/www/certbot
+        networks:
+            - commento_network
+
+networks:
+    commento_network:
+
+volumes:
+    commento_postgres_volume:
+        external: true
+    certbot_etc_volume:
+        external: true
+    certbot_var_volume:

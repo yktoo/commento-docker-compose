@@ -1,0 +1,14 @@
+[Unit]
+Description=Commento server
+
+[Service]
+TimeoutStopSec=30
+WorkingDirectory=/opt/commento
+ExecStartPre=-/usr/bin/docker volume create commento_postgres_volume
+ExecStartPre=-/usr/bin/docker volume create certbot_etc_volume
+ExecStartPre=-/usr/local/bin/docker-compose -p commento down -v
+ExecStart=/usr/local/bin/docker-compose -p commento up --abort-on-container-exit
+ExecStop=/usr/local/bin/docker-compose -p commento down -v
+
+[Install]
+WantedBy=multi-user.target
