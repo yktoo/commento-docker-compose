@@ -9,7 +9,7 @@ Using this as a starting point, you can set up a self-hosted Commento instance i
 1. You own a domain and a Linux server
 2. You have `root` shell access to the server
 
-## Step-for-step instructions
+## Step-by-step instructions
 
 1. Install [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/)
 2. Clone the project code to `/opt/commento`, for example:
