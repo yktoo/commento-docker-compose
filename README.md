@@ -1,4 +1,4 @@
-# Auto-deployable Commento server 
+# Auto-deployable Commento server
 
 This is a sample repository containing a self-sufficient [Commento](https://commento.io/) instance running on [Docker Compose](https://docs.docker.com/compose/) and using free auto-renewable SSL/TLS certificates provided by [Let's Encrypt](https://letsencrypt.org/).
 
@@ -20,7 +20,7 @@ Using this as a starting point, you can set up a self-hosted Commento instance i
 4. Recommended: pre-build and pre-pull the required images:
     ```bash
     cd /opt/commento
-    docker-compose -p commento pull 
+    docker-compose -p commento pull
     docker-compose -p commento build
     ```
 5. Create systemd service symlink, reload the daemon, enable and start the service:
@@ -51,4 +51,16 @@ docker-compose -p commento pull
 docker-compose -p commento build
 # Restart the service
 sudo systemctl restart commento.service
+```
+
+## Backing up
+
+To back up the database, the easiest way is to make a dump of the `commento` database.
+
+First, set up a passwordless login to your server using public key authentication.
+
+Then you can export the entire `commento` database using the command:
+
+```bash
+ssh YOUR_SERVER_HOST docker exec -t commento_postgres_1 pg_dump -U postgres -d commento > /path/to/dump.sql
 ```
