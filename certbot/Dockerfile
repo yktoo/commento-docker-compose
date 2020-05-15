@@ -14,8 +14,8 @@ RUN \
     apk add --no-cache curl && \
     # Download initial TLS params recommended by Let's Encrypt
     mkdir -p /conf && \
-    curl -fsSL https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/options-ssl-nginx.conf > "/conf/options-ssl-nginx.conf" && \
-    curl -fsSL https://raw.githubusercontent.com/certbot/certbot/master/certbot/ssl-dhparams.pem > "/conf/ssl-dhparams.pem" && \
+    curl -fsSL https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > "/conf/options-ssl-nginx.conf" && \
+    curl -fsSL https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > "/conf/ssl-dhparams.pem" && \
     # Create a dummy certificate for nginx
     openssl req -x509 -nodes -newkey rsa:1024 -days 1 -keyout '/conf/privkey.pem' -out '/conf/fullchain.pem' -subj '/CN=localhost' && \
     # Cleanup
