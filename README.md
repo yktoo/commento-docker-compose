@@ -2,6 +2,8 @@
 
 This is a sample repository containing a self-sufficient [Commento](https://commento.io/) instance running on [Docker Compose](https://docs.docker.com/compose/) and using free auto-renewable SSL/TLS certificates provided by [Let's Encrypt](https://letsencrypt.org/).
 
+💡 **Curious about how this works? Read a [detailed explanation here](https://yktoo.solutions/blog/2019/07/28-self-hosting-commento-with-docker-compose/).**
+
 Using this as a starting point, you can set up a self-hosted Commento instance in a matter of minutes.
 
 ## Prerequisites
