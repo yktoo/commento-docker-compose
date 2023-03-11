@@ -1,3 +1,9 @@
+**WARNING:**
+
+Commento is discontinued and not getting updates anymore. I recommend switching to [Comentario](https://comentario.app/), a fork of Commento that I'm actively developing.
+
+---
+
 # Auto-deployable Commento server
 
 This is a sample repository containing a self-sufficient [Commento](https://commento.io/) instance running on [Docker Compose](https://docs.docker.com/compose/) and using free auto-renewable SSL/TLS certificates provided by [Let's Encrypt](https://letsencrypt.org/).
