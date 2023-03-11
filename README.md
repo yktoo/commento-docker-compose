@@ -1,6 +1,8 @@
 **WARNING:**
 
-Commento is discontinued and not getting updates anymore. I recommend switching to [Comentario](https://comentario.app/), a fork of Commento that I'm actively developing.
+<div style="background-color: #fdf469; padding: 1rem;">
+Commento is discontinued and not getting updates anymore. I recommend switching to <a href="https://comentario.app/">Comentario</a>, a fork of Commento that I'm actively developing.
+</div>
 
 ---
 
